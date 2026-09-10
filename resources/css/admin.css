@@ -196,7 +196,7 @@ body,
 
 .layout-navigation {
     min-height: 4.5rem;
-    margin: 0 -1.75rem 1.5rem;
+    margin: 0;
     padding: 0 1.75rem 0 3rem;
     border-bottom: 1px solid var(--mushrooms-line);
 }
@@ -619,6 +619,41 @@ h6,
     border-color: var(--mushrooms-line) !important;
     background: var(--mushrooms-panel) !important;
     color: var(--mushrooms-ink) !important;
+}
+
+.form-switcher {
+    margin-right: 0;
+}
+
+.form-group.form-group-inline:has(.form-switcher) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    align-items: start;
+    justify-items: start;
+}
+
+.form-group.form-group-inline:has(.form-switcher) > .form-label {
+    grid-column: 2;
+    margin-left: 0.5rem;
+}
+
+.form-group.form-group-inline:has(.form-switcher) > [data-validation-wrapper] {
+    display: contents;
+}
+
+.form-group.form-group-inline:has(.form-switcher) .form-switcher {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    margin-top: 0.1rem;
+}
+
+.form-group.form-group-inline:has(.form-switcher) .form-hint {
+    grid-row: 2;
+    grid-column: 2;
+    margin-top: 0;
+    margin-left: 0.3rem;
 }
 
 :root.dark .btn.btn-square.btn-primary,
