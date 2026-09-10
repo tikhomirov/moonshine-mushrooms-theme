@@ -710,8 +710,6 @@ table th {
     font-weight: 600;
     letter-spacing: -0.075em;
     line-height: 0.9;
-    content: 'FamFi\A\A Финансы семьи,\A в которых\A есть ясность.';
-    white-space: pre-line;
 }
 
 .authentication-logo {
