@@ -1,0 +1,30 @@
+{
+    "name": "tikhomirov/moonshine-mushrooms-theme",
+    "description": "Mushrooms theme for MoonShine admin panel",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "moonshine",
+        "laravel",
+        "admin",
+        "theme"
+    ],
+    "require": {
+        "php": "^8.3",
+        "moonshine/moonshine": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tikhomirov\\MoonShineMushroomsTheme\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tikhomirov\\MoonShineMushroomsTheme\\MushroomsThemeServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
