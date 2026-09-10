@@ -15,6 +15,8 @@ final class MushroomsThemeServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mushrooms-theme');
+
         $this->publishes([
             __DIR__ . '/../config/mushrooms-theme.php' => config_path('mushrooms-theme.php'),
         ], 'moonshine-mushrooms-theme-config');
