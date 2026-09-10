@@ -127,6 +127,9 @@ class MushroomsThemeLayout extends AppLayout
             Div::make(array_filter([
                 $this->mobileMode ? null : Burger::make(),
             ]))->class('menu-burger'),
+            Div::make([
+                $this->getLogoComponent(),
+            ])->class('mobile-header-logo'),
             Breadcrumbs::make(
                 $this->getPage()->getBreadcrumbs(),
             )->prepend(
