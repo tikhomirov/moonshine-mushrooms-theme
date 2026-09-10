@@ -10,9 +10,7 @@ use Tikhomirov\MoonShineMushroomsTheme\Palettes\MushroomsPalette;
 
 class MushroomsThemeLayout extends AppLayout
 {
-    /**
-     * @var class-string
-     */
+    /** @var class-string */
     protected ?string $palette = MushroomsPalette::class;
 
     protected function assets(): array
