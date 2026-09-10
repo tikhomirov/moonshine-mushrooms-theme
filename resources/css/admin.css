@@ -38,12 +38,22 @@ body,
 
 .layout-wrapper {
     gap: 0 !important;
+    padding: 0 !important;
+}
+
+.layout-main {
+    border-radius: 0 !important;
 }
 
 .layout-menu {
     display: flex !important;
     width: 15.25rem !important;
+    height: 100vh !important;
     min-height: 100vh;
+    top: 0 !important;
+    position: sticky !important;
+    align-self: flex-start;
+    overflow: hidden;
     padding: 1.25rem 1rem 1rem !important;
     border: 0 !important;
     border-right: 1px solid var(--mushrooms-line) !important;
@@ -53,11 +63,12 @@ body,
 .menu-header {
     display: flex !important;
     min-height: 3rem !important;
-    margin: 0 0 1.75rem !important;
+    margin: 0 -1rem 1.25rem !important;
     padding: 0 0.6rem !important;
     align-items: center;
     justify-content: space-between;
     border-bottom: 0 !important;
+    border-bottom: 1px solid var(--mushrooms-line) !important;
 }
 
 .menu-logo img {
@@ -68,6 +79,9 @@ body,
 
 .layout-menu .menu {
     flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    padding-bottom: 8.5rem;
 }
 
 .layout-menu .menu-list {
@@ -154,16 +168,52 @@ body,
 
 .layout-navigation .dropdown-btn {
     position: fixed;
-    bottom: 3.5rem;
-    left: 1.65rem;
+    bottom: 0;
+    left: 0;
     z-index: 60;
     display: flex;
-    width: 12rem;
-    padding: 0.7rem;
+    width: 15.25rem;
+    min-height: 5.75rem;
+    padding: 1rem;
     align-items: center;
-    border: 1px solid var(--mushrooms-line);
-    border-radius: 0.85rem;
-    background: var(--mushrooms-panel);
+    border: 0;
+    border-top: 1px solid var(--mushrooms-line);
+    border-radius: 0;
+    background: var(--mushrooms-sidebar);
+}
+
+.layout-navigation .profile-main {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    color: var(--mushrooms-ink);
+    text-decoration: none;
+}
+
+.layout-navigation .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+.layout-navigation .profile-actions {
+    width: 100%;
+    margin-left: 0;
+}
+
+.layout-navigation .profile-exit {
+    color: var(--mushrooms-muted);
+}
+
+.layout-navigation .profile-exit svg {
+    display: none;
+}
+
+.layout-navigation .profile-exit::after {
+    content: 'Выйти';
 }
 
 .layout-navigation .dropdown-btn::after {
@@ -183,17 +233,97 @@ body,
 
 .layout-navigation > .dropdown {
     position: fixed;
-    bottom: 6.95rem;
-    left: 1.65rem;
+    bottom: 5.75rem;
+    left: 1rem;
     z-index: 61;
 }
 
 .layout-navigation .profile {
-    position: static !important;
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    z-index: 81;
+    display: flex;
+    width: 15.25rem;
+    min-height: 7.5rem;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    border-top: 1px solid var(--mushrooms-line);
+    background: var(--mushrooms-sidebar);
 }
 
 .layout-navigation > div[x-data] {
     display: contents;
+}
+
+.layout-navigation .profile-main {
+    display: flex;
+    min-height: 2.5rem;
+    padding: 0.45rem 0.55rem;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--mushrooms-ink);
+    text-decoration: none;
+    border-radius: 0.55rem;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.layout-navigation .profile-main:hover,
+.layout-navigation .profile-main:focus-visible {
+    background: var(--mushrooms-panel);
+    color: var(--mushrooms-ink);
+    outline: none;
+}
+
+.layout-navigation .profile-info {
+    min-width: 0;
+}
+
+.layout-navigation .profile-info .name,
+.layout-navigation .profile-info .email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.layout-navigation .profile-actions {
+    width: 100%;
+    position: static;
+    margin: 0;
+}
+
+.layout-navigation .profile-exit {
+    display: flex;
+    width: 100% !important;
+    min-height: 2.25rem;
+    padding: 0.4rem 0.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--mushrooms-line);
+    border-radius: 0.65rem;
+    background: var(--mushrooms-panel);
+    color: var(--mushrooms-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.layout-navigation .profile-exit:hover,
+.layout-navigation .profile-exit:focus-visible {
+    border-color: var(--mushrooms-ink);
+    background: var(--mushrooms-ink);
+    color: var(--mushrooms-panel);
+    outline: none;
+}
+
+.layout-navigation .profile-exit svg {
+    display: none;
+}
+
+.layout-navigation .profile-exit::after {
+    content: 'Выйти';
 }
 
 .layout-navigation .dropdown-body {
@@ -629,6 +759,78 @@ table th {
 }
 
 @media (max-width: 900px) {
+    .layout-wrapper {
+        padding-top: 4.5rem !important;
+    }
+
+    .layout-navigation {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 100;
+        display: flex !important;
+        height: 4.5rem;
+        min-height: 4.5rem;
+        margin: 0 !important;
+        padding: 0 1rem !important;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 3px solid var(--mushrooms-ink);
+        border-bottom: 1px solid var(--mushrooms-line);
+        background: var(--mushrooms-panel);
+    }
+
+    .layout-navigation::before {
+        position: absolute;
+        right: 0;
+        left: 0;
+        color: var(--mushrooms-ink);
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: center;
+        content: 'Famfi';
+        pointer-events: none;
+    }
+
+    .layout-navigation .btn-burger {
+        position: relative;
+        z-index: 1;
+        display: grid !important;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0.65rem;
+        place-items: center;
+        color: var(--mushrooms-ink);
+    }
+
+    .layout-navigation .menu-burger {
+        position: relative;
+        z-index: 1;
+        display: block !important;
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+
+    .layout-navigation .menu-burger .btn-burger {
+        display: grid !important;
+    }
+
+    .layout-navigation .btn-burger svg {
+        width: 1.35rem;
+        height: 1.35rem;
+    }
+
+    .layout-navigation > :last-child {
+        position: relative;
+        z-index: 1;
+        margin-left: auto;
+    }
+
+    .layout-navigation .breadcrumbs {
+        display: none !important;
+    }
+
     .authentication {
         display: block !important;
         padding: 1.5rem !important;
@@ -649,6 +851,35 @@ table th {
     }
 
     .layout-menu {
-        width: 100% !important;
+        width: min(20rem, calc(100vw - 3rem)) !important;
+        height: calc(100dvh - 4.5rem) !important;
+        min-height: 0;
+        top: 4.5rem !important;
+        z-index: 80;
+        transform: translateX(-100%);
+        transition: transform 180ms ease;
+    }
+
+    .layout-menu .menu {
+        padding-bottom: 8.5rem;
+    }
+
+    .layout-menu._is-opened {
+        transform: translateX(0);
+    }
+
+    .layout-overlay {
+        top: 4.5rem;
+        z-index: 75;
+    }
+
+    .layout-navigation .profile {
+        width: min(20rem, calc(100vw - 3rem));
+        transform: translateX(-100%);
+        transition: transform 180ms ease;
+    }
+
+    .layout-wrapper:has(.layout-menu._is-opened) .layout-navigation .profile {
+        transform: translateX(0);
     }
 }
