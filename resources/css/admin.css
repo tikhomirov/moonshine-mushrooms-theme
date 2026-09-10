@@ -779,18 +779,6 @@ table th {
         background: var(--mushrooms-panel);
     }
 
-    .layout-navigation::before {
-        position: absolute;
-        right: 0;
-        left: 0;
-        color: var(--mushrooms-ink);
-        font-size: 1rem;
-        font-weight: 700;
-        text-align: center;
-        content: 'Famfi';
-        pointer-events: none;
-    }
-
     .layout-navigation .btn-burger {
         position: relative;
         z-index: 1;
