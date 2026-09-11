@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tikhomirov\MoonShineMushroomsTheme\Layouts;
 
 use MoonShine\AssetManager\Css;
+use MoonShine\AssetManager\Js;
 use MoonShine\Crud\Components\Fragment;
 use MoonShine\Laravel\Components\Layout\Profile;
 use MoonShine\Laravel\Layouts\AppLayout;
@@ -77,10 +78,17 @@ class MushroomsThemeLayout extends AppLayout
             'mushrooms-theme.css_path',
             '/vendor/moonshine-mushrooms-theme/admin.css',
         );
+        $avatarPreviewPath = (string) config(
+            'mushrooms-theme.avatar_preview_path',
+            '/vendor/moonshine-mushrooms-theme/avatar-preview.js',
+        );
 
         return [
             ...parent::assets(),
             Css::make($cssPath)->version(ThemeAssetVersion::resolve($cssPath)),
+            Js::make($avatarPreviewPath)
+                ->defer()
+                ->version(ThemeAssetVersion::resolve($avatarPreviewPath)),
         ];
     }
 

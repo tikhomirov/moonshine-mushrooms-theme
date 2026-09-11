@@ -389,7 +389,7 @@ h6,
 .heading {
     color: var(--mushrooms-ink) !important;
     font-family: 'DM Sans', ui-sans-serif, sans-serif !important;
-    font-weight: 700 !important;
+    font-weight: 500;
 }
 
 .layout-page h3 {
