@@ -52,7 +52,7 @@ final class MushroomsPalette implements PaletteContract
         return [
             'body'           => 'oklch(16% 0.025 235)',
             'primary'        => 'oklch(91% 0.02 150)',
-            'primary-text'   => 'oklch(100% 0 0)',
+            'primary-text'   => 'oklch(16% 0.04 150)',
             'secondary'      => 'oklch(73% 0.1 135)',
             'secondary-text' => 'oklch(20% 0.03 235)',
             'success'        => 'oklch(72% 0.11 135)',

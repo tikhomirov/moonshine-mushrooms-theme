@@ -656,6 +656,15 @@ h6,
     margin-left: 0.3rem;
 }
 
+:root.dark .form-switcher-toggler::after {
+    --ms-form-switcher-thumb-bg-color: var(--mushrooms-lime);
+}
+
+:root.dark .form-switcher-control:checked + .form-switcher-toggler {
+    --ms-form-switcher-bg-color: var(--mushrooms-lime);
+    --ms-form-switcher-thumb-bg-color: #102016;
+}
+
 :root.dark .btn.btn-square.btn-primary,
 :root.dark .btn.btn-square.btn-primary:hover {
     border-color: var(--mushrooms-line) !important;
