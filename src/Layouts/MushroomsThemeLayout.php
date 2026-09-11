@@ -9,44 +9,32 @@ use MoonShine\Crud\Components\Fragment;
 use MoonShine\Laravel\Components\Layout\Profile;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\UI\Components\Breadcrumbs;
-use MoonShine\UI\Components\Layout\{
-    Body,
-    BottomBar,
-    Burger,
-    Content,
-    Div,
-    Flash,
-    Footer,
-    Header,
-    Html,
-    Layout,
-    Menu,
-    Sidebar,
-    ThemeSwitcher,
-    Wrapper
-};
+use MoonShine\UI\Components\Layout\Body;
+use MoonShine\UI\Components\Layout\BottomBar;
+use MoonShine\UI\Components\Layout\Burger;
+use MoonShine\UI\Components\Layout\Content;
+use MoonShine\UI\Components\Layout\Div;
+use MoonShine\UI\Components\Layout\Flash;
+use MoonShine\UI\Components\Layout\Footer;
+use MoonShine\UI\Components\Layout\Header;
+use MoonShine\UI\Components\Layout\Html;
+use MoonShine\UI\Components\Layout\Layout;
+use MoonShine\UI\Components\Layout\Menu;
+use MoonShine\UI\Components\Layout\Sidebar;
+use MoonShine\UI\Components\Layout\ThemeSwitcher;
+use MoonShine\UI\Components\Layout\Wrapper;
 use MoonShine\UI\Components\When;
 use Tikhomirov\MoonShineMushroomsTheme\Palettes\MushroomsPalette;
+use Tikhomirov\MoonShineMushroomsTheme\Support\ThemeAssetVersion;
 
 class MushroomsThemeLayout extends AppLayout
 {
+    private const string THEME_NAMESPACE = 'mushrooms-theme';
+
     /** @var class-string */
     protected ?string $palette = MushroomsPalette::class;
 
     protected bool $bottomBar = true;
-
-    private const string THEME_NAMESPACE = 'mushrooms-theme';
-
-    protected function assets(): array
-    {
-        return [
-            ...parent::assets(),
-            Css::make((string) config(
-                'mushrooms-theme.css_path',
-                '/vendor/moonshine-mushrooms-theme/admin.css',
-            )),
-        ];
-    }
 
     public function build(): Layout
     {
@@ -81,6 +69,19 @@ class MushroomsThemeLayout extends AppLayout
                     fn (Html $html): Html => $html->withThemes($this->isAlwaysDark()),
                 ),
         ]);
+    }
+
+    protected function assets(): array
+    {
+        $cssPath = (string) config(
+            'mushrooms-theme.css_path',
+            '/vendor/moonshine-mushrooms-theme/admin.css',
+        );
+
+        return [
+            ...parent::assets(),
+            Css::make($cssPath)->version(ThemeAssetVersion::resolve($cssPath)),
+        ];
     }
 
     protected function getSidebarComponent(): Sidebar

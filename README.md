@@ -23,3 +23,5 @@ Use the package layout and palette in `config/moonshine.php`:
 ```
 
 The layout is intentionally extendable. Applications can inherit it and add their own menu without coupling the theme to application classes.
+
+Theme CSS and JS assets use automatic cache busting via `ThemeAssetVersion`: the published public file mtime is preferred, otherwise the package source mtime or package version from `composer.json`.
