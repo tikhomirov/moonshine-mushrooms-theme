@@ -9,7 +9,7 @@ your application's models, resources, and business logic.
 ![MoonShine 4.8+](https://img.shields.io/badge/MoonShine-4.8%2B-f43f5e)
 ![License: MIT](https://img.shields.io/badge/license-MIT-22c55e)
 
-![MoonShine resource page with Mushrooms Theme](docs/screenshots/admin-resources.jpeg)
+![MoonShine resource page with Mushrooms Theme](docs/screenshots/admin-resources.png)
 
 ## Features
 
