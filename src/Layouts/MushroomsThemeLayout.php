@@ -25,6 +25,7 @@ use MoonShine\UI\Components\Layout\Sidebar;
 use MoonShine\UI\Components\Layout\ThemeSwitcher;
 use MoonShine\UI\Components\Layout\Wrapper;
 use MoonShine\UI\Components\When;
+use Tikhomirov\MoonShineMushroomsTheme\Components\BrandTitle;
 use Tikhomirov\MoonShineMushroomsTheme\Palettes\MushroomsPalette;
 use Tikhomirov\MoonShineMushroomsTheme\Support\ThemeAssetVersion;
 
@@ -98,9 +99,10 @@ class MushroomsThemeLayout extends AppLayout
 
         return Sidebar::make([
             Fragment::make([
-                Div::make([
+                Div::make(array_filter([
                     $this->getLogoComponent()->minimized(),
-                ])->class('menu-logo'),
+                    $this->getBrandTitleComponent(),
+                ]))->class('menu-logo'),
                 Div::make([
                     When::make(
                         fn (): bool => $this->hasThemes() && ! $this->isAlwaysDark(),
@@ -153,6 +155,25 @@ class MushroomsThemeLayout extends AppLayout
     {
         return Profile::make()
             ->customView(self::THEME_NAMESPACE . '::components.layout.profile');
+    }
+
+    /**
+     * Application name taken from the MoonShine config, unless it is disabled in the theme config.
+     */
+    protected function getBrandTitleComponent(): ?BrandTitle
+    {
+        if (! config('mushrooms-theme.show_title', true)) {
+            return null;
+        }
+
+        $title = trim((string) $this->getCore()->getConfig()->getTitle());
+
+        if ($title === '') {
+            return null;
+        }
+
+        return BrandTitle::make($title)
+            ->customAttributes([':class' => "minimizedMenu && '!hidden'"]);
     }
 
     protected function getBottomBarComponent(): BottomBar
