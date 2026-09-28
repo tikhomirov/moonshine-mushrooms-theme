@@ -22,7 +22,7 @@ final class MushroomsThemeServiceProvider extends ServiceProvider
         ], 'moonshine-mushrooms-theme-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/css/admin.css' => public_path('vendor/moonshine-mushrooms-theme/admin.css'),
+            __DIR__ . '/../resources/css/admin.css'     => public_path('vendor/moonshine-mushrooms-theme/admin.css'),
             __DIR__ . '/../resources/avatar-preview.js' => public_path('vendor/moonshine-mushrooms-theme/avatar-preview.js'),
         ], 'moonshine-mushrooms-theme-assets');
     }

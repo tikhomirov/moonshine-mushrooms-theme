@@ -27,5 +27,23 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.18",
+        "phpstan/phpstan": "^2.0",
+        "orchestra/testbench": "^10.0"
+    },
+    "scripts": {
+        "lint": "./vendor/bin/pint",
+        "lint:test": "./vendor/bin/pint --test",
+        "test:types": "./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=512M",
+        "ci": [
+            "@lint:test",
+            "@test:types"
+        ],
+        "ci:fix": [
+            "@lint"
+        ]
+    }
 }

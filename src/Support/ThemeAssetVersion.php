@@ -47,7 +47,8 @@ final class ThemeAssetVersion
 
         $composerPath = dirname(__DIR__, 2) . '/composer.json';
         $composer = json_decode((string) file_get_contents($composerPath), true);
-        $version = (string) ($composer['version'] ?? '1.0.0');
+        $declaredVersion = is_array($composer) ? ($composer['version'] ?? null) : null;
+        $version = is_string($declaredVersion) ? $declaredVersion : '1.0.0';
 
         return $version;
     }

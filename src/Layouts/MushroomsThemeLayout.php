@@ -6,6 +6,7 @@ namespace Tikhomirov\MoonShineMushroomsTheme\Layouts;
 
 use MoonShine\AssetManager\Css;
 use MoonShine\AssetManager\Js;
+use MoonShine\Contracts\ColorManager\PaletteContract;
 use MoonShine\Crud\Components\Fragment;
 use MoonShine\Laravel\Components\Layout\Profile;
 use MoonShine\Laravel\Layouts\AppLayout;
@@ -25,6 +26,7 @@ use MoonShine\UI\Components\Layout\Sidebar;
 use MoonShine\UI\Components\Layout\ThemeSwitcher;
 use MoonShine\UI\Components\Layout\Wrapper;
 use MoonShine\UI\Components\When;
+use Tikhomirov\MoonShineMushroomsTheme\Components\BrandTitle;
 use Tikhomirov\MoonShineMushroomsTheme\Palettes\MushroomsPalette;
 use Tikhomirov\MoonShineMushroomsTheme\Support\ThemeAssetVersion;
 
@@ -32,7 +34,7 @@ class MushroomsThemeLayout extends AppLayout
 {
     private const string THEME_NAMESPACE = 'mushrooms-theme';
 
-    /** @var class-string */
+    /** @var class-string<PaletteContract> */
     protected ?string $palette = MushroomsPalette::class;
 
     protected bool $bottomBar = true;
@@ -74,11 +76,11 @@ class MushroomsThemeLayout extends AppLayout
 
     protected function assets(): array
     {
-        $cssPath = (string) config(
+        $cssPath = self::assetPath(
             'mushrooms-theme.css_path',
             '/vendor/moonshine-mushrooms-theme/admin.css',
         );
-        $avatarPreviewPath = (string) config(
+        $avatarPreviewPath = self::assetPath(
             'mushrooms-theme.avatar_preview_path',
             '/vendor/moonshine-mushrooms-theme/avatar-preview.js',
         );
@@ -98,9 +100,10 @@ class MushroomsThemeLayout extends AppLayout
 
         return Sidebar::make([
             Fragment::make([
-                Div::make([
+                Div::make(array_filter([
                     $this->getLogoComponent()->minimized(),
-                ])->class('menu-logo'),
+                    $this->getBrandTitleComponent(),
+                ]))->class('menu-logo'),
                 Div::make([
                     When::make(
                         fn (): bool => $this->hasThemes() && ! $this->isAlwaysDark(),
@@ -128,7 +131,7 @@ class MushroomsThemeLayout extends AppLayout
     {
         $homeLabel = $this->getCore()->getTranslator()->get('moonshine::ui.home');
 
-        if ($homeLabel === 'moonshine::ui.home') {
+        if (! is_string($homeLabel) || $homeLabel === 'moonshine::ui.home') {
             $homeLabel = 'Home';
         }
 
@@ -155,6 +158,25 @@ class MushroomsThemeLayout extends AppLayout
             ->customView(self::THEME_NAMESPACE . '::components.layout.profile');
     }
 
+    /**
+     * Application name taken from the MoonShine config, unless it is disabled in the theme config.
+     */
+    protected function getBrandTitleComponent(): ?BrandTitle
+    {
+        if (! config('mushrooms-theme.show_title', true)) {
+            return null;
+        }
+
+        $title = mb_trim($this->getCore()->getConfig()->getTitle());
+
+        if ($title === '') {
+            return null;
+        }
+
+        return BrandTitle::make($title)
+            ->customAttributes([':class' => "minimizedMenu && '!hidden'"]);
+    }
+
     protected function getBottomBarComponent(): BottomBar
     {
         return BottomBar::make([
@@ -167,5 +189,12 @@ class MushroomsThemeLayout extends AppLayout
         return Footer::make()
             ->copyright('')
             ->menu([]);
+    }
+
+    private static function assetPath(string $key, string $default): string
+    {
+        $path = config($key, $default);
+
+        return is_string($path) ? $path : $default;
     }
 }

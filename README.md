@@ -107,10 +107,16 @@ The published `config/mushrooms-theme.php` file contains the asset paths:
 
 ```php
 return [
+    'show_title' => true,
     'css_path' => '/vendor/moonshine-mushrooms-theme/admin.css',
     'avatar_preview_path' => '/vendor/moonshine-mushrooms-theme/avatar-preview.js',
 ];
 ```
+
+`show_title` renders the application name next to the logo in the sidebar
+header. The text is taken from the MoonShine config (`config('moonshine.title')`)
+and truncated with an ellipsis when it does not fit. Set it to `false` to keep
+the header logo only, or use the `MOONSHINE_MUSHROOMS_SHOW_TITLE` env variable.
 
 The layout registers both assets automatically. Avatar upload and display are
 handled by MoonShine itself; the theme only adds an instant preview when a new
@@ -151,7 +157,12 @@ Source structure:
 - `resources/views/` — layout Blade templates
 - `resources/avatar-preview.js` — instant avatar file preview
 
+Run the checks before opening a pull request:
 
+```bash
+composer ci        # pint + phpstan (larastan, level 9)
+composer ci:fix    # apply pint fixes
+```
 
 ## License
 

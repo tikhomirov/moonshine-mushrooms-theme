@@ -1,0 +1,16 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 9
+    paths:
+        - src
+    tmpDir: var/phpstan
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - identifier: trait.unused
+        # The view() helper requires a view-string type; Larastan cannot validate
+        # namespace-prefixed view names at analysis time.
+        -
+            message: '#expects view\-string\|null, string given#'
+            identifier: argument.type
