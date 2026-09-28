@@ -6,6 +6,7 @@ namespace Tikhomirov\MoonShineMushroomsTheme\Layouts;
 
 use MoonShine\AssetManager\Css;
 use MoonShine\AssetManager\Js;
+use MoonShine\Contracts\ColorManager\PaletteContract;
 use MoonShine\Crud\Components\Fragment;
 use MoonShine\Laravel\Components\Layout\Profile;
 use MoonShine\Laravel\Layouts\AppLayout;
@@ -33,7 +34,7 @@ class MushroomsThemeLayout extends AppLayout
 {
     private const string THEME_NAMESPACE = 'mushrooms-theme';
 
-    /** @var class-string */
+    /** @var class-string<PaletteContract> */
     protected ?string $palette = MushroomsPalette::class;
 
     protected bool $bottomBar = true;
@@ -75,11 +76,11 @@ class MushroomsThemeLayout extends AppLayout
 
     protected function assets(): array
     {
-        $cssPath = (string) config(
+        $cssPath = self::assetPath(
             'mushrooms-theme.css_path',
             '/vendor/moonshine-mushrooms-theme/admin.css',
         );
-        $avatarPreviewPath = (string) config(
+        $avatarPreviewPath = self::assetPath(
             'mushrooms-theme.avatar_preview_path',
             '/vendor/moonshine-mushrooms-theme/avatar-preview.js',
         );
@@ -130,7 +131,7 @@ class MushroomsThemeLayout extends AppLayout
     {
         $homeLabel = $this->getCore()->getTranslator()->get('moonshine::ui.home');
 
-        if ($homeLabel === 'moonshine::ui.home') {
+        if (! is_string($homeLabel) || $homeLabel === 'moonshine::ui.home') {
             $homeLabel = 'Home';
         }
 
@@ -166,7 +167,7 @@ class MushroomsThemeLayout extends AppLayout
             return null;
         }
 
-        $title = trim((string) $this->getCore()->getConfig()->getTitle());
+        $title = mb_trim($this->getCore()->getConfig()->getTitle());
 
         if ($title === '') {
             return null;
@@ -188,5 +189,12 @@ class MushroomsThemeLayout extends AppLayout
         return Footer::make()
             ->copyright('')
             ->menu([]);
+    }
+
+    private static function assetPath(string $key, string $default): string
+    {
+        $path = config($key, $default);
+
+        return is_string($path) ? $path : $default;
     }
 }

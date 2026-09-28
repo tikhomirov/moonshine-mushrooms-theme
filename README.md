@@ -157,7 +157,12 @@ Source structure:
 - `resources/views/` — layout Blade templates
 - `resources/avatar-preview.js` — instant avatar file preview
 
+Run the checks before opening a pull request:
 
+```bash
+composer ci        # pint + phpstan (larastan, level 9)
+composer ci:fix    # apply pint fixes
+```
 
 ## License
 

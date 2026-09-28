@@ -681,7 +681,12 @@ h6,
     margin-left: 0.3rem;
 }
 
-:root.dark .form-switcher-toggler::after {
+/*
+ * The thumb colour must be set on the toggler itself, not on ::after: a value
+ * declared directly on the pseudo-element wins over the inherited one, so the
+ * checked state below would never apply its contrast colour.
+ */
+:root.dark .form-switcher-toggler {
     --ms-form-switcher-thumb-bg-color: var(--mushrooms-lime);
 }
 
