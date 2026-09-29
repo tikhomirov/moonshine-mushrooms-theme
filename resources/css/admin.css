@@ -86,15 +86,14 @@ body,
     min-width: 0;
     flex: 0 1 auto;
     align-items: center;
+}
+
+.menu-logo .mushrooms-brand-logo {
+    display: flex !important;
+    min-width: 0;
+    align-items: center;
     gap: 0.6rem;
-}
-
-.menu-actions {
-    flex: 0 0 auto;
-}
-
-.menu-logo .logo {
-    flex: 0 0 auto;
+    text-decoration: none;
 }
 
 .menu-logo img {

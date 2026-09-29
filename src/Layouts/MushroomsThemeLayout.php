@@ -26,7 +26,7 @@ use MoonShine\UI\Components\Layout\Sidebar;
 use MoonShine\UI\Components\Layout\ThemeSwitcher;
 use MoonShine\UI\Components\Layout\Wrapper;
 use MoonShine\UI\Components\When;
-use Tikhomirov\MoonShineMushroomsTheme\Components\BrandTitle;
+use Tikhomirov\MoonShineMushroomsTheme\Components\BrandLogo;
 use Tikhomirov\MoonShineMushroomsTheme\Palettes\MushroomsPalette;
 use Tikhomirov\MoonShineMushroomsTheme\Support\ThemeAssetVersion;
 
@@ -101,8 +101,7 @@ class MushroomsThemeLayout extends AppLayout
         return Sidebar::make([
             Fragment::make([
                 Div::make(array_filter([
-                    $this->getLogoComponent()->minimized(),
-                    $this->getBrandTitleComponent(),
+                    $this->getBrandLogoComponent(),
                 ]))->class('menu-logo'),
                 Div::make([
                     When::make(
@@ -159,22 +158,19 @@ class MushroomsThemeLayout extends AppLayout
     }
 
     /**
-     * Application name taken from the MoonShine config, unless it is disabled in the theme config.
+     * Brand logo component containing both logo and optional title.
      */
-    protected function getBrandTitleComponent(): ?BrandTitle
+    protected function getBrandLogoComponent(): BrandLogo
     {
-        if (! config('mushrooms-theme.show_title', true)) {
-            return null;
-        }
+        $showTitle = config('mushrooms-theme.show_title', true);
+        $title = $showTitle ? mb_trim($this->getCore()->getConfig()->getTitle()) : '';
 
-        $title = mb_trim($this->getCore()->getConfig()->getTitle());
-
-        if ($title === '') {
-            return null;
-        }
-
-        return BrandTitle::make($title)
-            ->customAttributes([':class' => "minimizedMenu && '!hidden'"]);
+        return BrandLogo::make(
+            $this->getHomeUrl(),
+            $this->getLogo(),
+            $this->getLogo(small: true),
+            $title !== '' ? $title : null,
+        )->minimized();
     }
 
     protected function getBottomBarComponent(): BottomBar
