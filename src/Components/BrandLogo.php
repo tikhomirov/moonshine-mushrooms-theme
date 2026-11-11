@@ -37,10 +37,10 @@ final class BrandLogo extends MoonShineComponent
     protected function viewData(): array
     {
         return [
-            'href' => $this->href,
-            'logo' => $this->logo,
+            'href'      => $this->href,
+            'logo'      => $this->logo,
             'logoSmall' => $this->logoSmall,
-            'title' => $this->title,
+            'title'     => $this->title,
             'minimized' => $this->minimized,
         ];
     }

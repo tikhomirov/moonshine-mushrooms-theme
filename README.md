@@ -1,12 +1,12 @@
 # MoonShine Mushrooms Theme
 
 A modern, lightweight theme for
-[MoonShine 4](https://moonshine-laravel.com/) with a calm color palette,
+[MoonShine](https://moonshine-laravel.com/) 4.8+ and 5.x with a calm color palette,
 compact navigation, and a clean workspace. It is completely independent of
 your application's models, resources, and business logic.
 
 ![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777BB4?logo=php&logoColor=white)
-![MoonShine 4.8+](https://img.shields.io/badge/MoonShine-4.8%2B-f43f5e)
+![MoonShine 4.8+ or 5.x](https://img.shields.io/badge/MoonShine-4.8%2B%20%7C%205.x-f43f5e)
 ![License: MIT](https://img.shields.io/badge/license-MIT-22c55e)
 
 ![MoonShine resource page with Mushrooms Theme](docs/screenshots/admin-resources.png)
@@ -29,8 +29,8 @@ your application's models, resources, and business logic.
 
 ## Requirements
 
-- PHP 8.3 or newer
-- MoonShine 4.8 or newer
+- PHP 8.3 or newer. MoonShine 5 requires PHP 8.4.
+- MoonShine 4.8+ or 5.x
 
 
 
