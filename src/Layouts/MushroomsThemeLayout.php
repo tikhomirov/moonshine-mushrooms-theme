@@ -100,9 +100,9 @@ class MushroomsThemeLayout extends AppLayout
 
         return Sidebar::make([
             Fragment::make([
-                Div::make(array_filter([
+                Div::make([
                     $this->getBrandLogoComponent(),
-                ]))->class('menu-logo'),
+                ])->class('menu-logo'),
                 Div::make([
                     When::make(
                         fn (): bool => $this->hasThemes() && ! $this->isAlwaysDark(),
@@ -163,7 +163,7 @@ class MushroomsThemeLayout extends AppLayout
     protected function getBrandLogoComponent(): BrandLogo
     {
         $showTitle = config('mushrooms-theme.show_title', true);
-        $title = $showTitle ? mb_trim($this->getCore()->getConfig()->getTitle()) : '';
+        $title = $showTitle ? self::trimUnicode((string) $this->getCore()->getConfig()->getTitle()) : '';
 
         return BrandLogo::make(
             $this->getHomeUrl(),
@@ -185,6 +185,18 @@ class MushroomsThemeLayout extends AppLayout
         return Footer::make()
             ->copyright('')
             ->menu([]);
+    }
+
+    /**
+     * mb_trim() exists only on PHP 8.4. MoonShine 4 still allows 8.3.
+     */
+    private static function trimUnicode(string $value): string
+    {
+        if (function_exists('mb_trim')) {
+            return mb_trim($value);
+        }
+
+        return preg_replace('/\A[\p{Z}\s]+|[\p{Z}\s]+\z/u', '', $value) ?? $value;
     }
 
     private static function assetPath(string $key, string $default): string
