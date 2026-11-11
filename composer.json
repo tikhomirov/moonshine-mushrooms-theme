@@ -2,7 +2,7 @@
     "name": "tikhomirov/moonshine-mushrooms-theme",
     "description": "Mushrooms theme for MoonShine admin panel",
     "type": "library",
-    "version": "1.6.4",
+    "version": "1.7.0",
     "license": "MIT",
     "keywords": [
         "moonshine",

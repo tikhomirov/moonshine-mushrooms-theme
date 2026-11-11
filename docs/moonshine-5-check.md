@@ -12,6 +12,8 @@ CSS темы на MS5 менять не пришлось. Дефекты на `f
 
 Актуальные кадры в `docs/moonshine-5-check/` (форма, список, дашборд, детальная, мобильная шапка и открытое меню).
 
+Планируемый релиз: `v1.7.0` (bump `composer.json`).
+
 ## Коммиты
 
 - `513eb37` — feat: support MoonShine 5 (constraint, `mb_trim` fallback для PHP 8.3/MS4)
