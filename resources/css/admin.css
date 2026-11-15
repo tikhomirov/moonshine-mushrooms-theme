@@ -831,14 +831,17 @@ table thead th {
     text-transform: none;
 }
 
+.table,
 table {
+    background: var(--mushrooms-sidebar) !important;
     color: var(--mushrooms-ink) !important;
 }
 
 table thead,
 table thead tr,
-table th {
-    background: color-mix(in srgb, var(--mushrooms-sidebar) 65%, transparent) !important;
+table th,
+.table-list thead {
+    background: transparent !important;
 }
 
 table td,
@@ -861,7 +864,21 @@ table th {
     margin-top: 0;
 }
 
+.layout-content > .grid.grid-cols-12 {
+    gap: 1.25rem !important;
+}
+
+.layout-content > .grid.grid-cols-12 > [class*='col-span-'] {
+    min-width: 0;
+}
+
+.dashboard-metrics {
+    margin-bottom: 0.35rem;
+}
+
 .dashboard-charts {
+    gap: 1.25rem !important;
+    margin-top: 1.25rem;
     margin-bottom: 2rem;
 }
 
