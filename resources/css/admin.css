@@ -684,13 +684,21 @@ h6,
  * The thumb colour must be set on the toggler itself, not on ::after: a value
  * declared directly on the pseudo-element wins over the inherited one, so the
  * checked state below would never apply its contrast colour.
+ *
+ * The track needs its own tint too: it defaults to --color-base, which is the
+ * same near-black as the panel behind it, so the switch reads as a floating
+ * dot. Off is a mid-gray track with a light thumb (the familiar iOS pattern),
+ * on is the lime accent with a dark thumb.
  */
 :root.dark .form-switcher-toggler {
-    --ms-form-switcher-thumb-bg-color: var(--mushrooms-lime);
+    --ms-form-switcher-bg-color: var(--mushrooms-line-strong);
+    --ms-form-switcher-border-color: var(--mushrooms-muted);
+    --ms-form-switcher-thumb-bg-color: var(--mushrooms-ink);
 }
 
 :root.dark .form-switcher-control:checked + .form-switcher-toggler {
     --ms-form-switcher-bg-color: var(--mushrooms-lime);
+    --ms-form-switcher-border-color: var(--mushrooms-lime);
     --ms-form-switcher-thumb-bg-color: #102016;
 }
 
