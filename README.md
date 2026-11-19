@@ -9,8 +9,6 @@ your application's models, resources, and business logic.
 ![MoonShine 4.8+ or 5.x](https://img.shields.io/badge/MoonShine-4.8%2B%20%7C%205.x-f43f5e)
 ![License: MIT](https://img.shields.io/badge/license-MIT-22c55e)
 
-![MoonShine resource page with Mushrooms Theme](docs/screenshots/admin-resources.png)
-
 ## Features
 
 - Minimal interface with subtle color accents
@@ -20,12 +18,6 @@ your application's models, resources, and business logic.
 - Light and dark color palettes
 - Automatic CSS cache busting without manually changing query parameters
 - Extendable layout with no dependency on application resources or menus
-
-
-
-### Navigation and user profile
-
-![Sidebar navigation and user profile](docs/screenshots/navigation.jpeg)
 
 ## Requirements
 
