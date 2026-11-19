@@ -14,6 +14,12 @@
     --mushrooms-lime-deep: #4b7651;
     --mushrooms-blue: #b8dce2;
     --mushrooms-shadow: 0 1px 3px rgb(0 0 0 / 3%), 0 4px 12px rgb(0 0 0 / 4%);
+
+    /* Plugin widgets often use MoonShine --ms-cm-*; alias to Mushrooms surfaces. */
+    --ms-cm-base-default: var(--mushrooms-panel);
+    --ms-cm-base-text: var(--mushrooms-ink);
+    --ms-cm-base-stroke: var(--mushrooms-line-strong);
+    --ms-cm-body: var(--mushrooms-canvas);
 }
 
 :root.dark {
@@ -30,6 +36,11 @@
     --mushrooms-lime-deep: #c8eda7;
     --mushrooms-blue: #79bdcc;
     --mushrooms-shadow: 0 8px 30px rgb(0 0 0 / 25%);
+
+    --ms-cm-base-default: var(--mushrooms-panel);
+    --ms-cm-base-text: var(--mushrooms-ink);
+    --ms-cm-base-stroke: var(--mushrooms-line-strong);
+    --ms-cm-body: var(--mushrooms-canvas);
 }
 
 html,
