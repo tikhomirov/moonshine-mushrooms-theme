@@ -48,9 +48,9 @@
                     class="profile-exit"
                     type="submit"
                     title="{{ $translates['logout'] ?? 'Выйти' }}"
+                    aria-label="{{ $translates['logout'] ?? 'Выйти' }}"
                 >
                     <x-moonshine::icon icon="arrow-right-start-on-rectangle" />
-                    <span>{{ $translates['logout'] ?? 'Выйти' }}</span>
                 </button>
             </form>
         @endif

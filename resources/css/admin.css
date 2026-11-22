@@ -253,8 +253,9 @@ body,
 
 .sidebar-profile .profile {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
     width: 100%;
 }
@@ -262,6 +263,7 @@ body,
 .sidebar-profile .profile-main {
     display: flex;
     min-width: 0;
+    flex: 1 1 auto;
     padding: 0.25rem;
     align-items: center;
     gap: 0.75rem;
@@ -312,32 +314,39 @@ body,
 }
 
 .sidebar-profile .profile-actions {
-    width: 100%;
+    width: auto;
     margin: 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .sidebar-profile .profile-exit {
     display: inline-flex;
-    width: 100%;
-    min-height: 2rem;
-    padding: 0.35rem 0.6rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.45rem;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
     border: 0;
     border-radius: 0.6rem;
     background: transparent;
     color: var(--mushrooms-subtle);
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-align: left;
     cursor: pointer;
     transition: background-color 150ms ease, color 150ms ease;
 }
 
 .sidebar-profile .profile-exit svg {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     stroke-width: 1.6;
+}
+
+.sidebar-profile .profile-exit .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .sidebar-profile .profile-exit:hover,
@@ -383,7 +392,7 @@ body,
     font-weight: 500 !important;
     letter-spacing: -0.01em !important;
     text-decoration: none !important;
-    transition: color 150ms ease !important;
+    transition: color 150ms ease, opacity 150ms ease !important;
 }
 
 .breadcrumbs a:hover {
@@ -766,72 +775,167 @@ h6,
     box-shadow: 0 0 0 4px rgb(185 233 134 / 28%) !important;
 }
 
-.form-group {
+/* Select dropdown is an overlay, so it needs an opaque surface. The theme
+   aliases --ms-cm-base-default to the translucent --mushrooms-panel, which
+   makes --color-base (and thus the tom-select dropdown) see-through. */
+.ts-dropdown {
+    border-color: var(--mushrooms-line-strong) !important;
+    border-radius: 0.75rem !important;
+    background: var(--mushrooms-canvas) !important;
+    box-shadow: var(--mushrooms-shadow) !important;
+}
+
+.ts-dropdown .option {
+    background-color: transparent;
+}
+
+.ts-dropdown .active,
+.ts-dropdown .selected {
+    background-color: var(--mushrooms-surface-muted) !important;
+}
+
+/* Collapse the label-to-field gap of column groups only; inline groups
+   (checkbox with its label) rely on the gap for horizontal spacing.
+   Dropzones keep their own gap between picker button and preview. */
+.form-group:not(.form-group-inline):not(.form-group-dropzone) {
     gap: 0 !important;
 }
 
-/* Keep the native file picker above the avatar preview. */
+.form-group.form-group-inline {
+    gap: var(--ms-form-group-gap, 0.5rem) !important;
+}
+
+/* Push toasts below the fixed header (4.5rem) so they never overlap it. */
+.toast-container {
+    padding-block-start: calc(4.5rem + 1rem);
+}
+
+/* Align the offcanvas header line with the main header (4.5rem). */
+.offcanvas-header {
+    align-items: center;
+    min-height: 4.5rem;
+    box-sizing: border-box;
+}
+
+/* Localized file picker: the native input keeps working but is invisible;
+   the wrapper renders a themed button + file name instead. The native text
+   ("Выберите файл") follows the BROWSER language, not the admin language,
+   so it is hidden. */
 .form-group-dropzone {
     position: relative;
-}
-
-.form-group-dropzone .form-file-upload {
-    position: relative;
-    z-index: 2;
-    cursor: pointer;
-}
-
-.form-group-dropzone .dropzone {
-    position: relative;
-    z-index: 1;
-}
-
-[data-field-selector='avatar'] .form-group-dropzone {
+    display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.75rem;
-}
-
-[data-field-selector='avatar'] .form-group-dropzone .form-file-upload {
-    width: min(100%, 28rem);
+    gap: 0.65rem !important;
+    width: 100%;
     min-height: 3rem;
     padding: 0.45rem 0.75rem;
     border: 1px solid var(--mushrooms-line);
     border-radius: 0.75rem;
     background: var(--mushrooms-panel);
-    color: var(--mushrooms-ink);
-    font-family: inherit;
-    font-size: 0.9rem;
+    box-sizing: border-box;
 }
 
-[data-field-selector='avatar'] .form-group-dropzone .form-file-upload::file-selector-button {
-    min-height: 2.1rem;
-    margin: -0.18rem 0.65rem -0.18rem -0.38rem;
-    padding: 0 0.75rem;
+.form-group-dropzone .form-file-upload {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     border: 0;
-    border-radius: 0.55rem;
-    background: var(--mushrooms-lime);
-    color: var(--mushrooms-ink);
-    font: inherit;
-    font-weight: 700;
+    opacity: 0;
+    font-size: 0;
     cursor: pointer;
 }
 
-[data-field-selector='avatar'] .form-group-dropzone .form-file-upload::file-selector-button:hover {
-    background: var(--mushrooms-blue);
+.form-group-dropzone::before {
+    flex: 0 0 auto;
+    content: 'Choose file';
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    padding: 0 0.75rem;
+    border-radius: 0.55rem;
+    background: var(--mushrooms-ink);
+    color: #f8fafc;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    transition: background-color 150ms ease;
 }
 
-[data-field-selector='avatar'] .form-group-dropzone .dropzone {
+:root.dark .form-group-dropzone::before {
+    background: var(--mushrooms-lime);
+    color: #102016;
+}
+
+html[lang='ru'] .form-group-dropzone::before {
+    content: 'Выбрать файл';
+}
+
+.form-group-dropzone::after {
+    content: attr(data-file-name);
+    overflow: hidden;
+    color: var(--mushrooms-ink);
+    font-size: 0.9rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Keep the existing file preview (avatar) clickable above the overlay and
+   place it after the button + file name row. */
+.form-group-dropzone .dropzone {
+    position: relative;
+    z-index: 2;
+    order: 3;
+    flex: 0 0 auto;
     width: auto;
-    min-width: 4rem;
+}
+
+/* Hide the empty dashed placeholder after the file is removed. */
+.form-group-dropzone .dropzone:not(:has(.dropzone-item)) {
+    display: none;
+}
+
+/* Remove button: hidden by default, revealed on hover over the preview,
+   so it never covers the image itself. */
+.form-group-dropzone .dropzone-item {
+    position: relative;
+}
+
+.form-group-dropzone .dropzone-remove {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     padding: 0;
     border: 0;
+    border-radius: 0.65rem;
+    background: rgb(15 23 42 / 55%);
+    color: #f8fafc;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 150ms ease;
 }
 
-[data-field-selector='avatar'] .form-group-dropzone .dropzone-items {
-    display: flex;
+.form-group-dropzone .dropzone-remove svg {
+    width: 1.1rem;
+    height: 1.1rem;
 }
 
+.form-group-dropzone .dropzone-item:hover .dropzone-remove {
+    opacity: 1;
+}
+
+:root.dark .form-group-dropzone .dropzone-remove {
+    background: rgb(5 7 13 / 65%);
+}
 
 .form-label,
 table thead th {
